@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework',
     'cred_app',
+    'core_app',
+
     'rest_framework_simplejwt',
 
     'corsheaders',
@@ -62,7 +64,7 @@ ROOT_URLCONF = 'credi.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
