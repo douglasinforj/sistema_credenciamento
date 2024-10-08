@@ -80,7 +80,7 @@ admin.site.register(Convidado, ConvidadoAdmin)
 
 
 class EventoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'data', 'data_termino', 'local', 'foto_icone', 'criado_em')
+    list_display = ('foto_icone','nome', 'data', 'data_termino', 'local',  'criado_em')
     search_fields = ('nome', 'local')
     readonly_fields = ('exibir_foto',)
 
