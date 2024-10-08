@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Titular, Convidado
+from .models import Titular, Convidado, Evento
 
 from django.utils.html import format_html
 
@@ -74,3 +74,28 @@ class ConvidadoAdmin(admin.ModelAdmin):
     exibir_foto.short_description = 'Foto atual'
 
 admin.site.register(Convidado, ConvidadoAdmin)
+
+
+#----------------------------Eventos----------------------------------
+
+
+class EventoAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'data', 'data_termino', 'local', 'foto_icone', 'criado_em')
+    search_fields = ('nome', 'local')
+    readonly_fields = ('exibir_foto',)
+
+    def foto_icone(self, obj):
+        if obj.foto:
+            return format_html('<img src="{}" style="width: 50px; height: 50px;" />', obj.foto.url)
+        return "Sem foto"
+
+    foto_icone.short_description = 'Foto'
+
+    def exibir_foto(self, obj):
+        if obj.foto:
+            return format_html('<img src="{}" style="width: 300px; height: 300px;" />', obj.foto.url)
+        return "Sem foto"
+
+    exibir_foto.short_description = 'Foto do Evento'
+
+admin.site.register(Evento, EventoAdmin)
