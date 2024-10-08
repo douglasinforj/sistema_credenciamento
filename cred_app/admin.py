@@ -6,6 +6,7 @@ from django.utils.html import format_html
 class TitularAdmin(admin.ModelAdmin):
     list_display = ('foto_com_icone','nome', 'cpf', 'email', 'telefone', 'criado_em', 'usuario')
     search_fields = ('nome', 'cpf', 'email')
+    readonly_fields = ('exibir_foto',)  # Campo somente leitura para ver a foto
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -22,6 +23,18 @@ class TitularAdmin(admin.ModelAdmin):
         return "Sem foto"  # se não conter a foto
 
     foto_com_icone.short_description = 'Foto'  # descrição da foto no admin
+
+
+    #Exibir a foto no formuário de detalhes no admin:
+
+    def exibir_foto(self, obj):
+        if obj.foto:
+            return format_html('<img src="{}" style="width: 150px; height: 150px;" />', obj.foto.url)
+        return "Sem foto"
+
+    exibir_foto.short_description = 'Foto atual'
+
+
 
 
 admin.site.register(Titular, TitularAdmin)
@@ -33,6 +46,7 @@ admin.site.register(Titular, TitularAdmin)
 class ConvidadoAdmin(admin.ModelAdmin):
     list_display = ('foto_com_icone','nome', 'cpf', 'email', 'telefone', 'criado_em', 'titular', 'usuario')
     search_fields = ('nome', 'cpf', 'email', 'titular')
+    readonly_fields = ('exibir_foto',)  
 
     def save_model(self, request, obj, form, change):
         if not change:
@@ -49,5 +63,14 @@ class ConvidadoAdmin(admin.ModelAdmin):
         return "Sem foto"  # se não conter a foto
 
     foto_com_icone.short_description = 'Foto'  # descrição da foto no admin
+
+    #Exibir a foto no formuário de detalhes no admin:
+
+    def exibir_foto(self, obj):
+        if obj.foto:
+            return format_html('<img src="{}" style="width: 150px; height: 150px;" />', obj.foto.url)
+        return "Sem foto"
+
+    exibir_foto.short_description = 'Foto atual'
 
 admin.site.register(Convidado, ConvidadoAdmin)
