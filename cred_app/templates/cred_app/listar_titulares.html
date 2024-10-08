@@ -1,0 +1,49 @@
+<!-- templates/cred_app/listar_titulares.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Titulares</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Lista de Titulares</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Foto</th>
+                    <th>Data de Criação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for titular in titulares %}
+                    <tr>
+                        <td>{{ titular.nome }}</td>
+                        <td>{{ titular.cpf }}</td>
+                        <td>{{ titular.email }}</td>
+                        <td>{{ titular.telefone }}</td>
+                        <td>
+                            {% if titular.foto %}
+                                <img src="{{ titular.foto.url }}" alt="Foto de {{ titular.nome }}" style="width: 50px; height: 50px; object-fit: cover;">
+                            {% else %}
+                                <span>Sem foto</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ titular.criado_em|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="6">Nenhum titular cadastrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
