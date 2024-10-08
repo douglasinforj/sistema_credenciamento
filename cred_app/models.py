@@ -8,7 +8,7 @@ class Titular(models.Model):
     telefone = models.CharField(max_length=20, blank=True)
     foto = models.ImageField(upload_to="fotos/titulares", null=True, blank=True)
     criado_em = models.DateTimeField(auto_now_add=True)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         verbose_name = "Titular"
